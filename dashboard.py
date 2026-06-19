@@ -37,14 +37,28 @@ st.markdown("""
     /* Ocultar menú hamburguesa y footer de Streamlit */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
-    header { visibility: hidden; }
+    /* Ocultamos el header sin afectar el botón de sidebar */
+    header { visibility: hidden; height: 0 !important; min-height: 0 !important; }
 
-    /* Botón para abrir/cerrar sidebar siempre visible */
+    /* Botón toggle del sidebar — siempre visible y accesible */
+    section[data-testid="collapsedControl"],
     [data-testid="collapsedControl"],
-    [data-testid="stSidebarCollapsedControl"],
-    button[kind="header"] {
+    [data-testid="stSidebarCollapsedControl"] {
         visibility: visible !important;
-        opacity: 1 !important;
+        display: flex !important;
+        position: fixed !important;
+        top: 0.4rem !important;
+        left: 0.4rem !important;
+        z-index: 999999 !important;
+        background: #0f172a !important;
+        border-radius: 6px !important;
+        padding: 2px !important;
+    }
+    section[data-testid="collapsedControl"] button,
+    [data-testid="collapsedControl"] button,
+    [data-testid="stSidebarCollapsedControl"] button {
+        visibility: visible !important;
+        color: #cbd5e1 !important;
     }
 
     /* Sidebar limpio */
