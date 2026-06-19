@@ -38,7 +38,14 @@ st.markdown("""
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     header { visibility: hidden; }
-    header [data-testid="stSidebarCollapsedControl"] { visibility: visible; }
+
+    /* Botón para abrir/cerrar sidebar siempre visible */
+    [data-testid="collapsedControl"],
+    [data-testid="stSidebarCollapsedControl"],
+    button[kind="header"] {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
 
     /* Sidebar limpio */
     [data-testid="stSidebar"] {
@@ -611,7 +618,7 @@ with col_funnel:
         showlegend=False,
         bargap=0.3,
     )
-    st.plotly_chart(fig_funnel, use_container_width=True)
+    st.plotly_chart(fig_funnel, width='stretch')
 
 with col_daily:
     leads_dia = dff.groupby("fecha").size().reset_index(name="leads")
@@ -638,7 +645,7 @@ with col_daily:
         bargap=0.25,
         showlegend=False,
     )
-    st.plotly_chart(fig_daily, use_container_width=True)
+    st.plotly_chart(fig_daily, width='stretch')
 
 
 # ─────────────────────────────────────────────
@@ -675,7 +682,7 @@ with col_tabla:
 
     st.dataframe(
         tbl,
-        use_container_width=True,
+        width='stretch',
         hide_index=True,
         column_config={
             "Conv. %": st.column_config.ProgressColumn(
@@ -719,7 +726,7 @@ with col_pie:
         legend=dict(font=dict(size=12), x=0.5, y=-0.1, xanchor="center", orientation="h"),
         showlegend=True,
     )
-    st.plotly_chart(fig_pie, use_container_width=True)
+    st.plotly_chart(fig_pie, width='stretch')
 
 
 # ─────────────────────────────────────────────
@@ -763,7 +770,7 @@ with col_hora:
             font=dict(size=11, color="#64748b"),
         )]
     )
-    st.plotly_chart(fig_hora, use_container_width=True)
+    st.plotly_chart(fig_hora, width='stretch')
 
 with col_dow:
     dow_df = dff.groupby("dow_es").size().reset_index(name="leads")
@@ -790,7 +797,7 @@ with col_dow:
         bargap=0.3,
         showlegend=False,
     )
-    st.plotly_chart(fig_dow, use_container_width=True)
+    st.plotly_chart(fig_dow, width='stretch')
 
 
 # ─────────────────────────────────────────────
@@ -823,7 +830,7 @@ fig_heat.update_layout(
     xaxis=dict(tickfont=dict(size=11, color="#475569"), side="bottom"),
     yaxis=dict(tickfont=dict(size=12, color="#0f172a")),
 )
-st.plotly_chart(fig_heat, use_container_width=True)
+st.plotly_chart(fig_heat, width='stretch')
 
 
 # ─────────────────────────────────────────────
@@ -991,7 +998,7 @@ with st.expander("Ver detalle de conversaciones", expanded=False):
 
     st.dataframe(
         df_tabla,
-        use_container_width=True,
+        width='stretch',
         height=400,
         hide_index=True,
     )
